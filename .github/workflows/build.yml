@@ -24,17 +24,29 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Setup Gradle
+      - name: Generate debug keystore
+        run: |
+          keytool -genkeypair -v \
+            -keystore app/keystore.jks \
+            -alias quotoex \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass android123 \
+            -keypass android123 \
+            -dname "CN=Quotex, OU=Dev, O=App, L=City, S=State, C=US"
+
+      - name: Setup Gradle 8.2
         uses: gradle/actions/setup-gradle@v3
         with:
           gradle-version: 8.2
 
-      - name: Build Release APK
+      - name: Build Debug APK
         run: gradle assembleDebug --no-daemon --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: quotex-apk
+          name: quotex-apk-signed
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
