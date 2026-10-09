@@ -23,10 +23,6 @@ android.allow_backup = True
 android.logcat_filters = *:S python:D
 android.wakelock = True
 
-# ⭐ منع تنزيل ANT (مش محتاجينه)
-android.skip_update = False
-android.accept_sdk_license = True
-
 [buildozer]
 log_level = 2
 warn_on_root = 1
