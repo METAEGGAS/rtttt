@@ -32,6 +32,15 @@ jobs:
           pip install --upgrade pip
           pip install buildozer cython==0.29.36
 
+      - name: Accept Android SDK License
+        run: |
+          mkdir -p ~/.android
+          echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > ~/.android/android-sdk-license
+          echo "8933bad161af4178b1185d1a37fbf41ea5269c55" >> ~/.android/android-sdk-license
+          echo "d56f5187479451eabf01fb78af6dfcb131a6481e" >> ~/.android/android-sdk-license
+          echo "84831b9409646a918e30573bab4c9c91346d8abd" >> ~/.android/android-sdk-license
+          echo "79120722343a6f314e07f004d70f083037b032e1" >> ~/.android/android-sdk-license
+
       - name: Cache Buildozer global directory
         uses: actions/cache@v3
         with:
@@ -51,6 +60,14 @@ jobs:
       - name: Build APK with Buildozer
         run: |
           export PATH=$PATH:$HOME/.local/bin
+          export ANDROID_SDK_ROOT=$HOME/.buildozer/android/platform/android-sdk
+          export ANDROID_HOME=$ANDROID_SDK_ROOT
+          mkdir -p "$ANDROID_SDK_ROOT/licenses"
+          echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > "$ANDROID_SDK_ROOT/licenses/android-sdk-license"
+          echo "8933bad161af4178b1185d1a37fbf41ea5269c55" >> "$ANDROID_SDK_ROOT/licenses/android-sdk-license"
+          echo "d56f5187479451eabf01fb78af6dfcb131a6481e" >> "$ANDROID_SDK_ROOT/licenses/android-sdk-license"
+          echo "84831b9409646a918e30573bab4c9c91346d8abd" >> "$ANDROID_SDK_ROOT/licenses/android-sdk-license"
+          echo "79120722343a6f314e07f004d70f083037b032e1" >> "$ANDROID_SDK_ROOT/licenses/android-sdk-license"
           yes | buildozer -v android debug
 
       - name: Upload APK
