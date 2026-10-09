@@ -11,8 +11,6 @@ requirements = python3,kivy==2.3.0,requests,websocket-client,urllib3,certifi,cha
 
 orientation = portrait
 fullscreen = 0
-presplash.filename = %(source.dir)s/presplash.png
-icon.filename = %(source.dir)s/icon.png
 
 android.permissions = INTERNET,ACCESS_NETWORK_STATE
 android.api = 33
@@ -20,10 +18,14 @@ android.minapi = 24
 android.ndk = 25b
 android.sdk = 33
 android.accept_sdk_license = True
-android.archs = arm64-v8a, armeabi-v7a
+android.archs = arm64-v8a
 android.allow_backup = True
 android.logcat_filters = *:S python:D
 android.wakelock = True
+
+# ⭐ منع تنزيل ANT (مش محتاجينه)
+android.skip_update = False
+android.accept_sdk_license = True
 
 [buildozer]
 log_level = 2
